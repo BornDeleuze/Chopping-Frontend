@@ -3,7 +3,7 @@
 /*
 create canvas
 create navbar
-create dropdown for high scores
+create high scores list
 fetch high scores
 display high scores
 "sign-in" with fetches for user.name
@@ -20,10 +20,11 @@ start another game loop?
 document.addEventListener("click", (event)=>{ console.log("You just peeped::", event.target) })
 
 // set canvas  
+
 const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext('2d');
 canvas.width = 640;
 canvas.height = 480;
-const ctx = canvas.getContext('2d');
 document.body.appendChild(canvas);
 
 
@@ -35,77 +36,68 @@ backgroundImage.onload  = function() {
     console.log("this happened")
 }
 
-// draw jax the hero
-const jaxImage = new Image();
-jaxImage.src = 'images/Jax.png'
-jaxImage.onload = function() {
-    ctx.drawImage(jaxImage, 250,250)
-}
-
 // game objects
 const jax = {
-	speed: 150
+	speed: 100
 };
 const shed = {};
 const trees = {};
+  //start postion
+  jax.x = 550
+  jax.y = 200
 
-// move jax``
-function moveJaxLeft() {
-  let leftNumbers = jax.style.left.replace("px", "");
-  let left = parseInt(leftNumbers, 10);
-  
-    if (left > 0) {
-      jax.style.left = `${left - 10}px`;
-    }
-  }
+// draw jax the hero
+const jaxImage = new Image();
+jaxImage.src = 'images/Jax.png'
+const drawBoard = function() {
+  ctx.drawImage(backgroundImage, 0, 0);
+  ctx.drawImage(jaxImage, jax.x , jax.y)
+}
 
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "ArrowLeft") {
-      moveJaxLeft();
-    }
-  });
+// move jax!
+var keysDown = {};
 
-  function moveJaxRight() {
-    let leftNumbers = jax.style.left.replace("px", "");
-    let left = parseInt(leftNumbers, 10);
-  
-    if (left > 0) {
-      jax.style.left = `${left + 10}px`;
-    }
+addEventListener("keydown", function (e) {
+	keysDown[e.keyCode] = true;
+}, false);
 
-  }
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "ArrowRight") {
-      moveJaxRight();
-    }
-  });
+addEventListener("keyup", function (e) {
+	delete keysDown[e.keyCode];
+}, false);
 
-  function moveJaxUp() {
-    let upNumbers = jax.style.bottom.replace("px", "");
-    let up = parseInt(upNumbers, 10);
-  
-    if (up > 0) {
-      jax.style.bottom = `${up + 10}px`;
-    }
-  }
+// holding key functions for arrow keys
+var refresh = function (variable) {
+	if (38 in keysDown) {
+		jax.y -= jax.speed * variable;
+	}
+	if (40 in keysDown) {
+		jax.y += jax.speed * variable;
+	}
+	if (37 in keysDown) {
+		jax.x -= jax.speed * variable;
+	}
+	if (39 in keysDown) {
+		jax.x += jax.speed * variable;
+	}
+};
 
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "ArrowUp") {
-      moveJaxUp();
-    }
-  });
+// The actual game loop
+let gScore = 0
+const main = function () {
+	let now = Date.now();
+	let delta = now - then;
 
-  function moveJaxDown() {
-    let upNumbers = jax.style.bottom.replace("px", "");
-    let up = parseInt(upNumbers, 10);
-  
-    if (up > 0) {
-      jax.style.bottom = `${up - 10}px`;
-    }
-  }
+	refresh(delta / 1000);
+	drawBoard();
 
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "ArrowDown") {
-      moveJaxDown();
-    }
-  });
+	then = now;
+  gScore +=1
+  score = Math.ceil(((gScore+1)/10)*10/1000) 
+
+	// Make this action a game loop
+	requestAnimationFrame(main);
+};
+
+// Let's play this game!
+let then = Date.now();
+main();
