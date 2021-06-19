@@ -1,5 +1,3 @@
-
-
 /*
 create canvas
 create navbar
@@ -19,85 +17,90 @@ start another game loop?
 // For easy debugging!
 document.addEventListener("click", (event)=>{ console.log("You just peeped::", event.target) })
 
-// set canvas  
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext('2d');
-canvas.width = 640;
-canvas.height = 480;
-document.body.appendChild(canvas);
+document.addEventListener("DOMContentLoaded", () => {
 
 
-//draw background
-const backgroundImage = new Image();
-backgroundImage.src = 'images/map.png'
-backgroundImage.onload  = function() {
+  // set canvas  
+
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext('2d');
+  canvas.width = 640;
+  canvas.height = 480;
+  document.body.appendChild(canvas);
+
+
+  //draw background
+  const backgroundImage = new Image();
+  backgroundImage.src = 'images/map.png'
+  backgroundImage.onload  = function() {
+      ctx.drawImage(backgroundImage, 0, 0);
+      console.log("this happened")
+  }
+
+  // game objects
+  const jax = {
+    speed: 100
+  };
+  const shed = {};
+  const trees = {};
+    //start postion
+    jax.x = 550
+    jax.y = 200
+
+  // draw jax the hero
+  const jaxImage = new Image();
+  jaxImage.src = 'images/Jax.png'
+  const drawBoard = function() {
     ctx.drawImage(backgroundImage, 0, 0);
-    console.log("this happened")
-}
+    ctx.drawImage(jaxImage, jax.x , jax.y)
+  }
 
-// game objects
-const jax = {
-	speed: 100
-};
-const shed = {};
-const trees = {};
-  //start postion
-  jax.x = 550
-  jax.y = 200
+  // move jax!
+  var keysDown = {};
 
-// draw jax the hero
-const jaxImage = new Image();
-jaxImage.src = 'images/Jax.png'
-const drawBoard = function() {
-  ctx.drawImage(backgroundImage, 0, 0);
-  ctx.drawImage(jaxImage, jax.x , jax.y)
-}
+  addEventListener("keydown", function (e) {
+    keysDown[e.keyCode] = true;
+  }, false);
 
-// move jax!
-var keysDown = {};
+  addEventListener("keyup", function (e) {
+    delete keysDown[e.keyCode];
+  }, false);
 
-addEventListener("keydown", function (e) {
-	keysDown[e.keyCode] = true;
-}, false);
+  // holding key functions for arrow keys
+  var refresh = function (variable) {
+    if (38 in keysDown) {
+      jax.y -= jax.speed * variable;
+    }
+    if (40 in keysDown) {
+      jax.y += jax.speed * variable;
+    }
+    if (37 in keysDown) {
+      jax.x -= jax.speed * variable;
+    }
+    if (39 in keysDown) {
+      jax.x += jax.speed * variable;
+    }
+  };
 
-addEventListener("keyup", function (e) {
-	delete keysDown[e.keyCode];
-}, false);
+  // The actual game loop
+  let gScore = 0
+  const main = function () {
+    let now = Date.now();
+    let delta = now - then;
 
-// holding key functions for arrow keys
-var refresh = function (variable) {
-	if (38 in keysDown) {
-		jax.y -= jax.speed * variable;
-	}
-	if (40 in keysDown) {
-		jax.y += jax.speed * variable;
-	}
-	if (37 in keysDown) {
-		jax.x -= jax.speed * variable;
-	}
-	if (39 in keysDown) {
-		jax.x += jax.speed * variable;
-	}
-};
+    refresh(delta / 1000);
+    drawBoard();
 
-// The actual game loop
-let gScore = 0
-const main = function () {
-	let now = Date.now();
-	let delta = now - then;
+    then = now;
+    gScore +=1
+    score = Math.ceil(((gScore+1)/10)*10/1000) 
 
-	refresh(delta / 1000);
-	drawBoard();
+    // Make this action a game loop
+    requestAnimationFrame(main);
+  };
 
-	then = now;
-  gScore +=1
-  score = Math.ceil(((gScore+1)/10)*10/1000) 
-
-	// Make this action a game loop
-	requestAnimationFrame(main);
-};
-
-// Let's play this game!
-let then = Date.now();
-main();
+  // Let's play this game!
+  let then = Date.now();
+  main();
+})

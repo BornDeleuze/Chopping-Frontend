@@ -1,8 +1,26 @@
 
+body {
+  background-color: aquamarine;
+}
+
+.header {
+  text-align: center;
+  background-color: blueviolet;
+  color: azure;
+}
+
 #jax {
     position: absolute;
   }
 
 #canvas {
     position:relative;
+    float:left; 
+}
+#scores {
+  text-align: center;
+  float:right;
+  width: 600px;
+  background-color: rgb(115, 236, 196);
+  
 }

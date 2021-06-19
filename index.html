@@ -7,14 +7,33 @@
   <title>Chopping!</title>
   <meta name="description" content="Chopping">
   <link rel="stylesheet" href="css/index.css">
-  
 </head>
 
 <body>
-    <canvas id="canvas" >
-      <div id="jax" style="bottom: 0px; left: 180px;"></div>
-    </canvas>
-  <h1>Hello Fellow Woodchoppers</h1>
+  <h1 class="header">Hello Fellow Woodchoppers</h1>
+  <div id="scores">
+    <h3>HIGH SCORES</h3>
+    
+    <div id="user_scores">
+      <p style="text-align:center"></p>
+      
+        <button id="score-toggle-user">VIEW LEADERBOARD</button>
+        <h4>YOUR HIGH SCORES</h4>
+      </p>
+    </div>
+    <div id="leader_scores">
+      <p style="text-align:center">
+        <button id="score-toggle-leader">VIEW YOUR BEST SCORES</button>
+        <h4>YOUR HIGH SCORES</h4>
+      </p>
+    </div>    
+
+</div>
+
+
+  <canvas id="canvas" >
+    <div id="jax" style="bottom: 0px; left: 180px;"></div>
+  </canvas>
   <script type="text/javascript" src="index.js"></script>
 </body>
 </html>
