@@ -13,10 +13,16 @@ class Game {
 
     // fill in score elements
     makeAScore =()=>{ console.log(this)
-        let gameUser = User.all.filter(status => status.id == this.user_id);
+
+        let gameUser = User.all.filter(user => user.id == this.user_id);
         let leaderScoreElement = document.getElementById(this.id)
-        leaderScoreElement.textContent = gameUser + ":" + this.score
-        console.log(this.score)
+        // leaderScoreElement.textContent = "hello"
+        // leaderScoreElement.innerHTML = gameUser[0]["name"] + ":" + this.score
+        console.log(this.score, gameUser[0]["name"], this.user_id)
+
+        return `
+        <p> ${gameUser[0]["name"]}  :  ${this.score}</p>
+        `
     }
 
     //show top scores
@@ -29,7 +35,7 @@ class Game {
         leaderScoreElement.id = game.id
         // Setting the InnerHTML for the (element)
         leaderScores.appendChild(leaderScoreElement);
-        
+
         leaderScoreElement.innerHTML = this.makeAScore()
     }
     
