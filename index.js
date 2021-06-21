@@ -34,14 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(canvas);
 
 
-  //draw background
-  const backgroundImage = new Image();
-  backgroundImage.src = 'images/map.png'
-  backgroundImage.onload  = function() {
-      ctx.drawImage(backgroundImage, 0, 0);
-      console.log("this happened")
-  }
-
   // game objects
   const jax = {
     speed: 100
@@ -55,6 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // draw jax the hero
   const jaxImage = new Image();
   jaxImage.src = 'images/Jax.png'
+  //draw background
+  const backgroundImage = new Image();
+  backgroundImage.src = 'images/map.png'
   const drawBoard = function() {
     ctx.drawImage(backgroundImage, 0, 0);
     ctx.drawImage(jaxImage, jax.x , jax.y)
@@ -89,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // The game loop
   let gScore = 0
-  const main = function () {
+  function main() {
     let now = Date.now();
     let delta = now - then;
 
@@ -104,9 +99,14 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(main);
   };
 
+
+  // Let's play this game!
+    const play=()=>{
+      main();
+  }
+
   //login form functionality and removal
   const loginForm = document.querySelector("#login-form")
-
   loginForm.addEventListener("submit", event =>{ event.preventDefault(); 
     const userName = event.target.name.value
     console.log("submitted values!:::", userName)
@@ -114,15 +114,14 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // find or create user
       //find
+    
     var request = User.all.filter(status => status.name == userName);
+    console.log(request)
       // or create
-    if (request.length === 0) User.all.push({name : userName});
-
-    console.log(list)
-
+    //if (request.length === 0) User.all.push({name : userName});
+    // console.log(list)
+    play()
   })
-  
-  // Let's play this game!
   let then = Date.now();
-  main();
+    
 })
