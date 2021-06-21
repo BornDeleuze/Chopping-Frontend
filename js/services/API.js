@@ -10,7 +10,7 @@ class API {
           fetchedArray.forEach(user => {console.log(user) 
             
             // Backend user into  frontend user
-            const newUser = new Actor(user)
+            const newUser = new User(user)
             // Put user in DOM
             newUser.renderActor(user)
           }) 

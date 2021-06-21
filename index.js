@@ -107,8 +107,15 @@ document.addEventListener("DOMContentLoaded", () => {
   loginForm.addEventListener("submit", event =>{ event.preventDefault(); 
     const userName = event.target.name.value
     console.log("submitted values!:::", userName)
-    USER
     document.getElementById("login-form").style.display = "none";
+
+    // find or create user
+    var request = USER.all.filter(status => status.name == "Request");
+
+    if (request.length === 0) list.push({name : "Request", data : [1]});
+    else if (request[0].data.length === 0) request[0].data.push(1);
+
+    console.log(list)
 
   })
   
