@@ -5,9 +5,9 @@ class API {
     static fetchAllUsers(){
 
         fetch(this.API_USER_TABLE_URL).then(response => response.json())
-        .then(fetchedArray => { console.log(fetchedArray);
+        .then(fetchedArray => {
           
-          fetchedArray.forEach(user => {console.log(user) 
+          fetchedArray.forEach(user => { 
             
             // Backend user into  frontend user
             const newUser = new User(user)
@@ -29,7 +29,7 @@ class API {
             // Backend user into  frontend user
             const newGame = new Game(game)
             // Put user in DOM
-            newGame.renderGame(game)
+            newGame.renderTopScores(game)
             }) 
         })
     }
