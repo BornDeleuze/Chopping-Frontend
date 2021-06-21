@@ -21,6 +21,9 @@ document.addEventListener("click", (event)=>{ console.log("You just peeped::", e
 document.addEventListener("DOMContentLoaded", () => {
 
 
+  API.fetchAllUsers()
+  API.fetchAllGames()
+
 
   // set canvas  
 
@@ -108,12 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const userName = event.target.name.value
     console.log("submitted values!:::", userName)
     document.getElementById("login-form").style.display = "none";
-
+    
     // find or create user
-    var request = USER.all.filter(status => status.name == "Request");
-
-    if (request.length === 0) list.push({name : "Request", data : [1]});
-    else if (request[0].data.length === 0) request[0].data.push(1);
+      //find
+    var request = User.all.filter(status => status.name == userName);
+      // or create
+    if (request.length === 0) User.all.push({name : userName});
 
     console.log(list)
 

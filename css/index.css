@@ -9,7 +9,7 @@ body {
   color: azure;
 }
 
-.login-form {
+#login-form {
   display: block;
   position: fixed;
   bottom: 0;

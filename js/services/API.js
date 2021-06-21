@@ -12,24 +12,24 @@ class API {
             // Backend user into  frontend user
             const newUser = new User(user)
             // Put user in DOM
-            newUser.renderActor(user)
+            newUser.renderUser(user)
           }) 
         })
     }
 
     // scores get fetch
-    static API_SCORES_TABLE_URL = "http://localhost:3000/scores"
-    static fetchAllScores(){
+    static API_SCORES_TABLE_URL = "http://localhost:3000/games"
+    static fetchAllGames(){
 
         fetch(this.API_SCORES_TABLE_URL).then(response => response.json())
         .then(fetchedArray => { console.log(fetchedArray);
             
-            fetchedArray.forEach(score => {console.log(score) 
+            fetchedArray.forEach(game => {console.log(game) 
             
             // Backend user into  frontend user
-            const newScore = new Actor(score)
+            const newGame = new Game(game)
             // Put user in DOM
-            newScore.renderScore(score)
+            newGame.renderGame(game)
             }) 
         })
     }
