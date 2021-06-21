@@ -97,18 +97,21 @@ document.addEventListener("DOMContentLoaded", () => {
     gScore +=1
     score = Math.ceil(((gScore+1)/10)*10/1000) 
 
-    // Make this action a game loop
+    // Make this action a loop
     requestAnimationFrame(main);
   };
 
-  //show the form on loading page and a function for removing when submitted
+  //login form functionality and removal
+  const loginForm = document.querySelector("#login-form")
 
-  function removeForm() {
+  loginForm.addEventListener("submit", event =>{ event.preventDefault(); 
+    const userName = event.target.name.value
+    console.log("submitted values!:::", userName)
+
     document.getElementById("login-form").style.display = "none";
-  }
+  })
     
   
-
   // Let's play this game!
   let then = Date.now();
   main();

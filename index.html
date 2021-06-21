@@ -7,6 +7,10 @@
   <title>Chopping!</title>
   <meta name="description" content="Chopping">
   <link rel="stylesheet" href="css/index.css">
+  <script type="text/javascript" src="index.js"></script>
+  <script type="text/javascript" src="js/models/users.js"></script>
+  <script type="text/javascript" src="js/models/scores.js"></script>
+  <script type="text/javascript" src="js/services/API.js"></script>
 </head>
 
 <body>
@@ -32,18 +36,14 @@
 
 <div id="login-form">
   <form action="/action_page.php" class="form-container">
-    <label for="email"><b>ENTER YOU 3 DIGIT HANDLE</b></label>
-    <input type="text" placeholder="XXX" name="name">
-    
-
-    <button type="submit" class="btn">SUBMIT</button>
-    <button type="button" class="btn cancel" onclick="removeForm()">Close</button>
+    <label for="name"><b>ENTER YOU 3 DIGIT HANDLE</b></label>
+    <input type="text" placeholder="XXX" name="name" required="required">
+    <button type="submit" name= "submit" class="submit">SUBMIT</button>
   </form>
 </div>
 
   <canvas id="canvas" >
     <div id="jax" style="bottom: 0px; left: 180px;"></div>
   </canvas>
-  <script type="text/javascript" src="index.js"></script>
 </body>
 </html>
