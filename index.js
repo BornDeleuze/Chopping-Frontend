@@ -107,10 +107,10 @@ document.addEventListener("DOMContentLoaded", () => {
   loginForm.addEventListener("submit", event =>{ event.preventDefault(); 
     const userName = event.target.name.value
     console.log("submitted values!:::", userName)
-
+    USER
     document.getElementById("login-form").style.display = "none";
+
   })
-    
   
   // Let's play this game!
   let then = Date.now();
