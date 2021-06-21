@@ -1,6 +1,6 @@
 /*
-create canvas
-create navbar
+Xcreate canvas
+Xcreate navbar
 create high scores list
 fetch high scores
 display high scores
@@ -19,6 +19,7 @@ document.addEventListener("click", (event)=>{ console.log("You just peeped::", e
 
 
 document.addEventListener("DOMContentLoaded", () => {
+
 
 
   // set canvas  
@@ -83,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // The actual game loop
+  // The game loop
   let gScore = 0
   const main = function () {
     let now = Date.now();
@@ -99,6 +100,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Make this action a game loop
     requestAnimationFrame(main);
   };
+
+  //show the form on loading page and a function for removing when submitted
+
+  function removeForm() {
+    document.getElementById("login-form").style.display = "none";
+  }
+    
+  
 
   // Let's play this game!
   let then = Date.now();

@@ -12,7 +12,7 @@
 <body>
   <h1 class="header">Hello Fellow Woodchoppers</h1>
   <div id="scores">
-    <h3>HIGH SCORES</h3>
+    <h3>SCOREBOARD</h3>
     
     <div id="user_scores">
       <p style="text-align:center"></p>
@@ -30,6 +30,16 @@
 
 </div>
 
+<div id="login-form">
+  <form action="/action_page.php" class="form-container">
+    <label for="email"><b>ENTER YOU 3 DIGIT HANDLE</b></label>
+    <input type="text" placeholder="XXX" name="name">
+    
+
+    <button type="submit" class="btn">SUBMIT</button>
+    <button type="button" class="btn cancel" onclick="removeForm()">Close</button>
+  </form>
+</div>
 
   <canvas id="canvas" >
     <div id="jax" style="bottom: 0px; left: 180px;"></div>
