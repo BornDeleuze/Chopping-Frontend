@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
       main();
   }
 
-  //login form functionality and removal
+  //login form functionality and removal, which starts game
   const loginForm = document.querySelector("#login-form")
   loginForm.addEventListener("submit", event =>{ event.preventDefault(); 
     const userName = event.target.name.value
