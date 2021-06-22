@@ -44,11 +44,11 @@ class Game {
     makeAUserScore =()=>{ console.log(this)
         let gameUser = User.all.filter(user => user.id == this.user_id);
         console.log(gameUser)
-        // let userScoreElement = document.getElementById(this.id)
-        // console.log(this.score, gameUser[0]["name"], this.user_id)
-        // return `
-        // <p> ${gameUser[0]["name"]}  :  ${this.score}</p>
-        // `
+        let userScoreElement = document.getElementById(this.id)
+        console.log(this.score, gameUser[0]["name"], this.user_id)
+        return `
+        <p> ${gameUser[0]["name"]}  :  ${this.score}</p>
+        `
     }
 
     //show top scores

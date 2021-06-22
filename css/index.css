@@ -40,7 +40,8 @@ body {
   background-color: rgb(115, 236, 196);  
 }
 #user_scores {
+  display: none;
 }
 #leader_scores {
-
+  
 }

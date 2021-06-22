@@ -38,11 +38,29 @@ document.addEventListener("DOMContentLoaded", () => {
     speed: 100
   };
   const shed = {};
+  // shed positions are
+    // x= 498
+    // x = 508
+    // y = 108
+    // y = 97
   const trees = {};
-    //start postion
+  const choppingBlock = {};
+  let gScore = 0
+  let scoreIncrease = false
+  let sasquatchOut = false
+  let gameOver = false
+
+  // chopping block position is
+  // 
+  // x = 380-450
+  // y = 290-330
+
+
+  // start postions
     jax.x = 550
     jax.y = 200
 
+  // DRAWING canvas which is called in loop
   // draw jax the hero
   const jaxImage = new Image();
   jaxImage.src = 'images/Jax.png'
@@ -52,7 +70,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const drawBoard = function() {
     ctx.drawImage(backgroundImage, 0, 0);
     ctx.drawImage(jaxImage, jax.x , jax.y)
+  // DRAW THE Score!
+	ctx.fillStyle = "rgb(250, 250, 250)";
+	ctx.font = "20px Arial";
+	ctx.textAlign = "left";
+	ctx.textBaseline = "top";
+	ctx.fillText("Score " + gScore, 32, 32);
   }
+
 
   // move jax!
   var keysDown = {};
@@ -79,10 +104,40 @@ document.addEventListener("DOMContentLoaded", () => {
     if (39 in keysDown) {
       jax.x += jax.speed * variable;
     }
+    	// scoring points on chopping position
+    if (
+      jax.x < 450
+      && jax.x > 380
+      && jax.y < 330
+      && jax.y > 290
+    )
+    {
+      scoreIncrease = true;
+    } 
+    else {
+      scoreIncrease = false;
+    }
+
+    // losing game cuz of sasquatch when not in house
+    if (
+      jax.x > 508
+      || jax.x < 498
+      && jax.y > 108
+      || jax.y < 97
+      && sasquatchOut == true
+    ){ gameOver = true
+    }
   };
 
+  // increase score function
+  function increaseScore(){
+    if (scoreIncrease == true){
+      gScore+=1
+    }
+  }
+
   // The game loop
-  let gScore = 0
+  
   function main() {
     let now = Date.now();
     let delta = now - then;
@@ -91,8 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
     drawBoard();
 
     then = now;
-    gScore +=1
-    score = Math.ceil(((gScore+1)/10)*10/1000) 
+    increaseScore()
 
     // Make this action a loop
     requestAnimationFrame(main);
@@ -108,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.querySelector("#login-form")
   loginForm.addEventListener("submit", event =>{ event.preventDefault(); 
     const userName = event.target.name.value
-    console.log("submitted values!:::", userName)
+    console.log("submitted values!:::", userName);
     document.getElementById("login-form").style.display = "none";
     
     // find or create user
@@ -123,5 +177,18 @@ document.addEventListener("DOMContentLoaded", () => {
     play()
   })
   let then = Date.now();
-    
+
+
+
+
 })
+
+// hide and seek with the scores!
+function displayTopScores() {
+  document.getElementById("user_scores").style.display = "none";
+  document.getElementById("leader_scores").style.display = "block";
+}
+function displayUserScores() {
+  document.getElementById("user_scores").style.display = "block";
+  document.getElementById("leader_scores").style.display = "none";
+}
