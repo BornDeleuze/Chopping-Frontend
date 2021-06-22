@@ -63,10 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // start postions
     jax.x = 550
     jax.y = 200
-    sasquatch.x =0
+    sasquatch.x =-300
     sasquatch.y =0
-
-  // game over function
 
   // DRAWING canvas which is called in loop
   // draw jax the hero
@@ -118,12 +116,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (sasquatchActive == true){
       sasquatch.x += (gScore/2) * variable;
     }
-    if (sasquatch.x > 380){
+    if (sasquatch.x > 155){
       sasquatchOut = true;
     }
     if (sasquatch.x > 600){
       sasquatchActive = false;
-      sasquatch.x = -300
+      sasquatchOut = false;
+      sasquatch.x = -300;
     }
 
     	// scoring points on chopping position
@@ -142,12 +141,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // losing game cuz of sasquatch when not in house
     if (
-      jax.x > 508
-      || jax.x < 498
-      && jax.y > 108
-      || jax.y < 97
-      && sasquatchOut == true
-    ){ gameOver()
+      jax.x < 508
+      && jax.x > 498
+      && jax.y < 108
+      && jax.y > 97
+    ){}else if (
+      sasquatchOut == true
+    ){ console.log("gameOver") 
+      gameOver = true
     }
   };
 
