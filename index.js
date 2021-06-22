@@ -203,28 +203,29 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentUserExists = User.all.some(function (elem) {
       if (elem.name === userName) {
         currentUser = elem;
-        // currentUser.renderUser(currentUser)
+        currentUser.renderUser(elem)
         return true;
       }
     });
     console.log(currentUser)
     //create
     if(!currentUserExists) {
+      console.log("yupppp")
       fetch(API_DATABASE_URL, {        
           method: "POST",
           headers: { "Content-Type": "application/json"},
           body: JSON.stringify({
-                "name": userName,       
+            "name": userName,       
           })
         })
         .then(response => response.json())
-        .then(theThingFromServer => User.renderUser(theThingFromServer))
+        // .then(theThingFromServer => User.renderUser(theThingFromServer))
         .then(theThingWePosted => console.log("Hey! This is what is sent! ", theThingWePosted))
         // .then(theCallback => User.renderUser(theCallback) )
   
-        console.log(currentUser)
+    //     console.log(currentUser)
     }
-    API.fetchAllUserGames(currentUser)
+    // API.fetchAllUserGames(currentUser)
     play()
   })
 

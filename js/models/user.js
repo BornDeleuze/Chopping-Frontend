@@ -15,7 +15,7 @@ class User {
     renderUser =(user)=> {
         const userHeader = document.getElementById("user_header")
         console.log(userHeader.textContent)
-        userHeader.textContent= user.name
+        userHeader.textContent= "GOOD LUCK " + user.name
     }
     
 }
