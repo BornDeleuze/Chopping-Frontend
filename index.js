@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
   API.fetchAllUsers()
   API.fetchAllGames()
 
-
   // set canvas  
 
   const canvas = document.getElementById("canvas");
@@ -115,8 +114,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // find or create user
       //find
     
-    var request = User.all.filter(status => status.name == userName);
-    console.log(request)
+    const currentUser = User.all.filter(status => status.name == userName)[0];
+    API.fetchAllUserGames(currentUser)
+
       // or create
     //if (request.length === 0) User.all.push({name : userName});
     // console.log(list)

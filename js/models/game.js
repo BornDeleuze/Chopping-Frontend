@@ -16,8 +16,6 @@ class Game {
 
         let gameUser = User.all.filter(user => user.id == this.user_id);
         let leaderScoreElement = document.getElementById(this.id)
-        // leaderScoreElement.textContent = "hello"
-        // leaderScoreElement.innerHTML = gameUser[0]["name"] + ":" + this.score
         console.log(this.score, gameUser[0]["name"], this.user_id)
 
         return `
@@ -37,6 +35,32 @@ class Game {
         leaderScores.appendChild(leaderScoreElement);
 
         leaderScoreElement.innerHTML = this.makeAScore()
+        console.log(this)
     }
-    
+
+
+
+    //show the users best scores
+    makeAUserScore =()=>{ console.log(this)
+        let gameUser = User.all.filter(user => user.id == this.user_id);
+        console.log(gameUser)
+        // let userScoreElement = document.getElementById(this.id)
+        // console.log(this.score, gameUser[0]["name"], this.user_id)
+        // return `
+        // <p> ${gameUser[0]["name"]}  :  ${this.score}</p>
+        // `
+    }
+
+    //show top scores
+    renderTopUserScores =(game)=> {
+        const userScores = document.getElementById("user_scores")
+        let userScoreElement = document.createElement("h5")
+        userScoreElement.classList.add("score")
+        userScoreElement.setAttribute("id", game.id)
+        // Add an (id=) to (leaderScoreElement)
+        userScoreElement.id = game.id
+        // Setting the InnerHTML for the (element)
+        userScores.appendChild(userScoreElement);
+        userScoreElement.innerHTML = this.makeAUserScore()
+    }
 }

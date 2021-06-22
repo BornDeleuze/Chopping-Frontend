@@ -33,4 +33,34 @@ class API {
             }) 
         })
     }
+
+    static API_USER_SCORES_TABLE_URL = "http://localhost:3000/"
+    static fetchAllGames(){
+
+        fetch(this.API_SCORES_TABLE_URL).then(response => response.json())
+        .then(fetchedArray => { console.log(fetchedArray);
+            
+            fetchedArray.slice(0, 10).forEach(game => {console.log(game) 
+            // Backend games into  frontend games
+            const newGame = new Game(game)
+            // Put game scores in DOM
+            newGame.renderTopScores(game)
+            }) 
+        })
+    }
+
+    static fetchAllUserGames(currentUser){
+        fetch(this.API_SCORES_TABLE_URL).then(response => response.json())
+        .then(fetchedArray => {
+          let fetchedUserArray = fetchedArray.filter(game => game.user_id == currentUser.id);
+          console.log(fetchedArray)
+          console.log(fetchedUserArray)
+            fetchedUserArray.slice(0, 10).forEach(game => {console.log(game) 
+            // Backend games into  frontend games
+            const newGame = new Game(game)
+            // Put game scores in DOM
+            newGame.renderTopUserScores(game)
+            }) 
+        })
+    }
 }
