@@ -12,7 +12,7 @@ class API {
             // Backend user into  frontend user
             const newUser = new User(user)
             // Put user in DOM
-            newUser.renderUser(user)
+            // newUser.renderUser(user)
           }) 
         })
     }
@@ -22,26 +22,11 @@ class API {
     static fetchAllGames(){
 
         fetch(this.API_SCORES_TABLE_URL).then(response => response.json())
-        .then(fetchedArray => { console.log(fetchedArray);
+        .then(fetchedArray => {
             
-            fetchedArray.forEach(game => {console.log(game) 
+            fetchedArray.slice(0, 10).forEach(game => {
             
-            // Backend user into  frontend user
-            const newGame = new Game(game)
-            // Put user in DOM
-            newGame.renderTopScores(game)
-            }) 
-        })
-    }
-
-    static API_USER_SCORES_TABLE_URL = "http://localhost:3000/"
-    static fetchAllGames(){
-
-        fetch(this.API_SCORES_TABLE_URL).then(response => response.json())
-        .then(fetchedArray => { console.log(fetchedArray);
-            
-            fetchedArray.slice(0, 10).forEach(game => {console.log(game) 
-            // Backend games into  frontend games
+            // Backend game into  frontend game
             const newGame = new Game(game)
             // Put game scores in DOM
             newGame.renderTopScores(game)
@@ -49,13 +34,12 @@ class API {
         })
     }
 
+    // scores get fetch for given user
     static fetchAllUserGames(currentUser){
         fetch(this.API_SCORES_TABLE_URL).then(response => response.json())
         .then(fetchedArray => {
           let fetchedUserArray = fetchedArray.filter(game => game.user_id == currentUser.id);
-          console.log(fetchedArray)
-          console.log(fetchedUserArray)
-            fetchedUserArray.slice(0, 10).forEach(game => {console.log(game) 
+            fetchedUserArray.slice(0, 10).forEach(game => {
             // Backend games into  frontend games
             const newGame = new Game(game)
             // Put game scores in DOM

@@ -20,7 +20,7 @@ document.addEventListener("click", (event)=>{ console.log("You just peeped::", e
 
 document.addEventListener("DOMContentLoaded", () => {
 
-
+  const API_DATABASE_URL = "http://localhost:3000/users"
   API.fetchAllUsers()
   API.fetchAllGames()
 
@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(canvas);
 
 
-  
-  
+
+
   // score variables
   let gScore = 0
   let scoreIncrease = false
@@ -54,18 +54,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const shed = {};
   const sasquatchImage = new Image();
   sasquatchImage.src = 'images/sasquatch.png'
-  // chopping block position is
-  // 
-  // x = 380-450
-  // y = 290-330
-
 
   // start postions
     jax.x = 550
     jax.y = 200
     sasquatch.x =-300
     sasquatch.y =0
-
+  const drawGameOver = function(){
+    console.log("we hit the game over")
+    ctx.fillStyle = "rgb(250, 250, 250)";
+    ctx.font = "30px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    ctx.fillText("GAME OVER!!!!! YOUR SCORE: " + gScore, 300, 300);
+  }
   // DRAWING canvas which is called in loop
   // draw jax the hero
   const jaxImage = new Image();
@@ -79,11 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (sasquatchActive == true){ctx.drawImage(sasquatchImage, sasquatch.x, sasquatch.y);}
 
   // DRAW THE Score!
-	ctx.fillStyle = "rgb(250, 250, 250)";
-	ctx.font = "20px Arial";
-	ctx.textAlign = "left";
-	ctx.textBaseline = "top";
-	ctx.fillText("Score " + gScore, 32, 32);
+  ctx.fillStyle = "rgb(250, 250, 250)";
+  ctx.font = "20px Arial";
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  ctx.fillText("Score " + gScore, 32, 32);
   }
 
   // move jax!
@@ -125,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sasquatch.x = -300;
     }
 
-    	// scoring points on chopping position
+      // scoring points on chopping position
     if (
       jax.x < 450
       && jax.x > 380
@@ -160,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // The game loop
-  
+
   function main() {
     let now = Date.now();
     let delta = now - then;
@@ -173,9 +175,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (gScore == 100 || gScore == 350 || gScore ==400 || gScore == 500 || gScore == 600 || gScore == 625 || gScore== 15000) {
       sasquatchActive = true
   }
-
+    if (gameOver == true){
+      // User.saveScore()
+      drawGameOver();
+      // cancelAnimationFrame(gameLoop);
+    }
     // Make this action a loop
-    requestAnimationFrame(main);
+    if (!gameOver){requestAnimationFrame(main);}
   };
 
 
@@ -184,29 +190,45 @@ document.addEventListener("DOMContentLoaded", () => {
       main();
   }
 
-  //login form functionality and removal, which starts game
+  // POST FETCH 
+  //login form functionality and removal, which starts game, and calls the post fetch
   const loginForm = document.querySelector("#login-form")
   loginForm.addEventListener("submit", event =>{ event.preventDefault(); 
     const userName = event.target.name.value
-    console.log("submitted values!:::", userName);
     document.getElementById("login-form").style.display = "none";
-    
-    // find or create user
-      //find
-    
-    const currentUser = User.all.filter(status => status.name == userName)[0];
-    API.fetchAllUserGames(currentUser)
 
-      // or create
-    //if (request.length === 0) User.all.push({name : userName});
-    // console.log(list)
+    //find or create by name
+    //find
+    let currentUser = null
+    let currentUserExists = User.all.some(function (elem) {
+      if (elem.name === userName) {
+        currentUser = elem;
+        // currentUser.renderUser(currentUser)
+        return true;
+      }
+    });
+    console.log(currentUser)
+    //create
+    if(!currentUserExists) {
+      fetch(API_DATABASE_URL, {        
+          method: "POST",
+          headers: { "Content-Type": "application/json"},
+          body: JSON.stringify({
+                "name": userName,       
+          })
+        })
+        .then(response => response.json())
+        .then(theThingFromServer => User.renderUser(theThingFromServer))
+        .then(theThingWePosted => console.log("Hey! This is what is sent! ", theThingWePosted))
+        // .then(theCallback => User.renderUser(theCallback) )
+  
+        console.log(currentUser)
+    }
+    API.fetchAllUserGames(currentUser)
     play()
   })
-  let then = Date.now();
 
-
-
-
+    let then = Date.now();
 })
 
 // hide and seek with the scores!
