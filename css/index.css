@@ -41,7 +41,13 @@ body {
 }
 #user_scores {
   display: none;
+  text-align: center;
 }
 #leader_scores {
+  text-align: center;
   
+}
+#play-again{
+  float:right;
+  display: none;
 }

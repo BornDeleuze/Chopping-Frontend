@@ -1,18 +1,3 @@
-/*
-Xcreate canvas
-Xcreate navbar
-create high scores list
-fetch high scores
-display high scores
-"sign-in" with fetches for user.name
-render other graphics (hero, monster?)
-assign buttons for movement and starting (and action?)
-make game logic
-save score with post fetch
-update highscore list
-start another game loop?
-*/
-
 
 // For easy debugging!
 document.addEventListener("click", (event)=>{ console.log("You just peeped::", event.target) })
@@ -41,8 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(canvas);
 
 
-
-
+  
   // score variables
   let gScore = 0
   let scoreIncrease = false
@@ -57,17 +41,39 @@ document.addEventListener("DOMContentLoaded", () => {
     speed: 100
   };
 
-  const sasquatch = {
-  }
-  const shed = {};
+  const sasquatch = {};
   const sasquatchImage = new Image();
   sasquatchImage.src = 'images/sasquatch.png'
 
-  // start postions
+
+  // play again button for when the game is over
+  function showPlayAgain(){
+    const playAgainDiv = document.getElementById("play-again")
+    playAgainDiv.style.display="block"
+  }
+  // play again button functionality
+  const playAgainButton = document.getElementById("play-again-button")
+  playAgainButton.addEventListener("click", function(){
+    console.log("hello world")
+    playAgainButton.style.display="none"
+    play()
+
+  });
+
+  // reset/start gamestate variables.
+  function resetGame(){
     jax.x = 550
     jax.y = 200
+    gScore = 0
+    gameOver = false
+    sasquatchActive = false
+    sasquatchOut = false
     sasquatch.x =-300
     sasquatch.y =0
+  }
+  
+
+  //draw game over screen
   const drawGameOver = function(){
     console.log("we hit the game over")
     ctx.fillStyle = "rgb(250, 250, 250)";
@@ -83,6 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
   //draw background
   const backgroundImage = new Image();
   backgroundImage.src = 'images/map.png'
+
+  // draw board function
   const drawBoard = function() {
     ctx.drawImage(backgroundImage, 0, 0);
     ctx.drawImage(jaxImage, jax.x , jax.y);
@@ -183,9 +191,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (gScore == 100 || gScore == 350 || gScore ==400 || gScore == 500 || gScore == 600 || gScore == 625 || gScore== 15000) {
       sasquatchActive = true
     }
+    // game over actions
     if (gameOver == true){
-      // User.saveScore()
       drawGameOver();
+      showPlayAgain();
       //post fetch for GAME SCORE ********************************
       console.log(loggedUser)
       fetch(API_GAMES_URL, {        
@@ -208,11 +217,6 @@ document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(main)
     }
 
-  }
-
-  // Let's play this game!
-    const play=()=>{
-      main();
   }
 
   // POST FETCH 
@@ -254,18 +258,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     API.fetchAllUserGames(loggedUser)
     // renderUser(loggedUser)
+    resetGame()
     play()
   })
 
-    let then = Date.now();
-  });
+  // Let's play this game!
+  let play=()=>{
+    resetGame()
+    main();
+  }
+  let then = Date.now();
 
-//Clear the scores!
-function clearScores(){
-  const leaderScores = document.getElementById("leader_scores")
-  leaderScores.textContent = ""
-  
-}
+
+  //Clear the scores!
+  function clearScores(){
+    const leaderScores = document.getElementById("leader_scores")
+    leaderScores.textContent = ""
+  }
+});
 
 // hide and seek with the scores!
 function displayTopScores() {
