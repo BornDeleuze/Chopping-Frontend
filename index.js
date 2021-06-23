@@ -186,17 +186,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (gameOver == true){
       // User.saveScore()
       drawGameOver();
-      // //post fetch for game score
-      // console.log(currentUser)
-      // fetch(API_GAMES_URL, {        
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json"},
-      //   body: JSON.stringify({
-      //     "score": userName,       
-      //   })
-      // })
-      // .then(response => response.json())
-      // .then(theThingWePosted => console.log("Hey! This is what is sent! ", theThingWePosted))
+      //post fetch for GAME SCORE ********************************
+      console.log(loggedUser)
+      fetch(API_GAMES_URL, {        
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify({
+          "score": gScore,
+          "user_id": loggedUser.id       
+        })
+      })
+      .then(response => response.json())
+      .then(theThingWePosted => console.log("Hey! This is what is sent! ", theThingWePosted))
+      clearScores()
+      API.fetchAllGames()
+      API.fetchAllUserGames(loggedUser)
     }
     
     // Make this action a loop
@@ -248,7 +252,6 @@ document.addEventListener("DOMContentLoaded", () => {
           setUser(currentUser)
         })
     }
-    
     API.fetchAllUserGames(loggedUser)
     // renderUser(loggedUser)
     play()
@@ -257,7 +260,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let then = Date.now();
   });
 
-
+//Clear the scores!
+function clearScores(){
+  const leaderScores = document.getElementById("leader_scores")
+  leaderScores.textContent = ""
+  
+}
 
 // hide and seek with the scores!
 function displayTopScores() {
