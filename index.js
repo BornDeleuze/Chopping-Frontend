@@ -20,7 +20,15 @@ document.addEventListener("click", (event)=>{ console.log("You just peeped::", e
 
 document.addEventListener("DOMContentLoaded", () => {
 
+  //logged in user
+  let loggedUser = {}
+  function setUser (user){
+    loggedUser = new User(user)
+    console.log(loggedUser)
+  }
+
   const API_DATABASE_URL = "http://localhost:3000/users"
+  const API_GAMES_URL = "http://localhost:3000/games"
   API.fetchAllUsers()
   API.fetchAllGames()
 
@@ -80,12 +88,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.drawImage(jaxImage, jax.x , jax.y);
     if (sasquatchActive == true){ctx.drawImage(sasquatchImage, sasquatch.x, sasquatch.y);}
 
-  // DRAW THE Score!
-  ctx.fillStyle = "rgb(250, 250, 250)";
-  ctx.font = "20px Arial";
-  ctx.textAlign = "left";
-  ctx.textBaseline = "top";
-  ctx.fillText("Score " + gScore, 32, 32);
+    // DRAW THE Score!
+    ctx.fillStyle = "rgb(250, 250, 250)";
+    ctx.font = "20px Arial";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    ctx.fillText("Score " + gScore, 32, 32);
   }
 
   // move jax!
@@ -171,19 +179,32 @@ document.addEventListener("DOMContentLoaded", () => {
     drawBoard();
 
     then = now;
-    increaseScore()
+    increaseScore();
     if (gScore == 100 || gScore == 350 || gScore ==400 || gScore == 500 || gScore == 600 || gScore == 625 || gScore== 15000) {
       sasquatchActive = true
-  }
+    }
     if (gameOver == true){
       // User.saveScore()
       drawGameOver();
-      // cancelAnimationFrame(gameLoop);
+      // //post fetch for game score
+      // console.log(currentUser)
+      // fetch(API_GAMES_URL, {        
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json"},
+      //   body: JSON.stringify({
+      //     "score": userName,       
+      //   })
+      // })
+      // .then(response => response.json())
+      // .then(theThingWePosted => console.log("Hey! This is what is sent! ", theThingWePosted))
     }
+    
     // Make this action a loop
-    if (!gameOver){requestAnimationFrame(main);}
-  };
+    if (!gameOver){
+      requestAnimationFrame(main)
+    }
 
+  }
 
   // Let's play this game!
     const play=()=>{
@@ -199,18 +220,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //find or create by name
     //find
-    let currentUser = null
+    var currentUser = null
     let currentUserExists = User.all.some(function (elem) {
       if (elem.name === userName) {
         currentUser = elem;
-        currentUser.renderUser(elem)
+        currentUser.renderUser(elem);
+        setUser(currentUser)
         return true;
       }
     });
-    console.log(currentUser)
+
     //create
     if(!currentUserExists) {
-      console.log("yupppp")
       fetch(API_DATABASE_URL, {        
           method: "POST",
           headers: { "Content-Type": "application/json"},
@@ -219,18 +240,24 @@ document.addEventListener("DOMContentLoaded", () => {
           })
         })
         .then(response => response.json())
-        // .then(theThingFromServer => User.renderUser(theThingFromServer))
-        .then(theThingWePosted => console.log("Hey! This is what is sent! ", theThingWePosted))
-        // .then(theCallback => User.renderUser(theCallback) )
-  
-    //     console.log(currentUser)
+        // .then(theThingFromServer => console.log(theThingFromServer))
+        .then(theThingWePosted => {
+          currentUser = theThingWePosted
+          console.log(currentUser)
+          console.log(theThingWePosted)
+          setUser(currentUser)
+        })
     }
-    // API.fetchAllUserGames(currentUser)
+    
+    API.fetchAllUserGames(loggedUser)
+    // renderUser(loggedUser)
     play()
   })
 
     let then = Date.now();
-})
+  });
+
+
 
 // hide and seek with the scores!
 function displayTopScores() {
