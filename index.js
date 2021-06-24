@@ -272,17 +272,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Clear the scores!
   function clearScores(){
-    const leaderScores = document.getElementById("leader_scores")
+    const leaderScores = document.getElementById("leader-scores")
     leaderScores.textContent = ""
+    const userScores = document.getElementById("user-scores")
+    userScores.textContent = ""
   }
 });
 
 // hide and seek with the scores!
 function displayTopScores() {
-  document.getElementById("user_scores").style.display = "none";
-  document.getElementById("leader_scores").style.display = "block";
+  document.getElementById("user-scores-card").style.display = "none";
+  document.getElementById("leader-scores-card").style.display = "block";
 }
 function displayUserScores() {
-  document.getElementById("user_scores").style.display = "block";
-  document.getElementById("leader_scores").style.display = "none";
+  document.getElementById("user-scores-card").style.display = "block";
+  document.getElementById("leader-scores-card").style.display = "none";
 }

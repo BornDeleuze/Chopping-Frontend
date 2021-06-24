@@ -39,11 +39,11 @@ body {
   width: 600px;
   background-color: rgb(115, 236, 196);  
 }
-#user_scores {
+#user-scores-card {
   display: none;
   text-align: center;
 }
-#leader_scores {
+#leader-scores-card {
   text-align: center;
   
 }
