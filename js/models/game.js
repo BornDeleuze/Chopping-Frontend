@@ -13,7 +13,6 @@ class Game {
 
     // fill in score elements
     makeAScore =()=>{
-
         let gameUser = User.all.filter(user => user.id == this.user_id);
         // let leaderScoreElement = document.getElementById(this.id)
         // console.log(this.score, gameUser[0]["name"], this.user_id)
@@ -25,6 +24,8 @@ class Game {
 
     //show top scores
     renderTopScores =(game)=> {
+        
+
         const leaderScores = document.getElementById("leader-scores")
         let leaderScoreElement = document.createElement("h5")
         leaderScoreElement.classList.add("score")
@@ -43,7 +44,7 @@ class Game {
     //show the users best scores
     makeAUserScore =()=>{
         let gameUser = User.all.filter(user => user.id == this.user_id);
-        let userScoreElement = document.getElementById(this.id)
+        // let userScoreElement = document.getElementById(this.id)
         // console.log(this.score, gameUser[0]["name"], this.user_id)
         return `
         <p> ${gameUser[0]["name"]}  :  ${this.score}</p>

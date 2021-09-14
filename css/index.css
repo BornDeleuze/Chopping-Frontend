@@ -2,6 +2,9 @@
 body {
   background-color: aquamarine;
 }
+h5{
+  text-align: center;
+}
 
 .header {
   text-align: center;
@@ -20,24 +23,30 @@ body {
   text-align: center;
   bottom: 0;
   left: 30px;
-  border: 10px solid #f1f1f1;
+  border: 10px solid;
+  border-radius: 5px;
+  border-color: azure;
   height: 300px;
   width: 300px;
 }
 
 #jax {
-    position: absolute;
+  position: absolute;
   }
 
 #canvas {
-    position:relative;
-    float:left; 
+  position:relative;
+  float:left; 
+  
 }
 #scores {
   text-align: center;
   float:right;
   width: 600px;
-  background-color: rgb(115, 236, 196);  
+  background-color: rgb(115, 236, 196); 
+  border: 10px solid;
+  border-radius: 5px;
+  border-color: azure;
 }
 #user-scores-card {
   display: none;

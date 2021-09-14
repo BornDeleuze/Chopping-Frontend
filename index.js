@@ -5,6 +5,21 @@ document.addEventListener("click", (event)=>{ console.log("You just peeped::", e
 
 document.addEventListener("DOMContentLoaded", () => {
 
+
+  // shame user
+  // get element, add listener, add block for show, find the user with the name ass, find that lowest score, populate the node.
+  // const shameUserButton = document.getElementById("shame-user")
+  // shameUserButton.addEventListener("click", ()=> {
+  //   let assUser= User.all.find( user => user.name == "ass")
+  //   let assUserScores = Game.all.filter(game => game.user_id == assUser.id)
+    
+
+
+  //   console.log(assUserScores)
+  // })
+
+
+
   //logged in user
   let loggedUser = {}
   function setUser (user){
@@ -40,11 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const jax = {
     speed: 100
   };
-
   const sasquatch = {};
   const sasquatchImage = new Image();
   sasquatchImage.src = 'images/sasquatch.png'
 
+  // music
+  let myMusic= document.getElementById("music");
+  myMusic.loop = true
 
   // play again button for when the game is over
   function showPlayAgain(){
@@ -187,7 +204,6 @@ document.addEventListener("DOMContentLoaded", () => {
     drawBoard();
 
     then = now;
-    increaseScore();
     if (gScore == 100 || gScore == 350 || gScore ==400 || gScore == 500 || gScore == 600 || gScore == 625 || gScore== 15000) {
       sasquatchActive = true
     }
@@ -206,11 +222,14 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       })
       .then(response => response.json())
-      .then(theThingWePosted => console.log("Hey! This is what is sent! ", theThingWePosted))
+      .then(theThingWePosted => {console.log("Hey! This is what is sent! ",theThingWePosted)
       clearScores()
       API.fetchAllGames()
       API.fetchAllUserGames(loggedUser)
+      })
     }
+    increaseScore();
+
     
     // Make this action a loop
     if (!gameOver){
@@ -225,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loginForm.addEventListener("submit", event =>{ event.preventDefault(); 
     const userName = event.target.name.value
     document.getElementById("login-form").style.display = "none";
-
+    console.log("helloooo!!!!!")
     //find or create by name
     //find
     var currentUser = null
@@ -265,7 +284,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Let's play this game!
   let play=()=>{
     resetGame()
-    main();
+    main()
+    myMusic.play()
   }
   let then = Date.now();
 

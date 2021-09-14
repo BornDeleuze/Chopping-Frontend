@@ -14,11 +14,19 @@
 </head>
 
 <body>
+  <audio id="music">
+    <source src="./music/choploopfinal.ogg" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+
   <h1 class="header">Hello Fellow Woodchoppers</h1>
   <h1 class="user_header" id="user_header">PLEASE LOG IN</h1>
+  <h5>GO CHOP WOOD NEAR THE STUMP, AND HIDE IN YOUR HOUSE IF ANYTHING ATTACKS!</h5>
   <div id="login-form">
     <form action="/action_page.php" class="form-container">
       <label for="name"><b>ENTER YOU 3 DIGIT HANDLE</b></label>
+    <br>
       <input type="text" placeholder="Please Log In" name="name" required="required">
       <button type="submit" name= "submit" class="submit">SUBMIT</button>
     </form>
@@ -36,6 +44,7 @@
       </p>
     </div>
     <div id="leader-scores-card">
+      <!-- <button id="shame-user">Shame User</button> -->
       <p>
         <button id="score-toggle-leader" onclick="displayUserScores()">VIEW YOUR BEST SCORES</button>
         <h4>TOP SCORES</h4>

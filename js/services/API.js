@@ -20,16 +20,18 @@ class API {
     // scores get fetch
     static API_SCORES_TABLE_URL = "http://localhost:3000/games"
     static fetchAllGames(){
-
+      
         fetch(this.API_SCORES_TABLE_URL).then(response => response.json())
         .then(fetchedArray => {
+          
             
             fetchedArray.slice(0, 10).forEach(game => {
             
             // Backend game into  frontend game
             const newGame = new Game(game)
             // Put game scores in DOM
-            newGame.renderTopScores(game)
+            setTimeout(function(){ newGame.renderTopScores(game) }, 500);
+            // newGame.renderTopScores(game)
             }) 
         })
     }
