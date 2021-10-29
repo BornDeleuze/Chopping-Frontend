@@ -7,3 +7,5 @@ https://github.com/BornDeleuze/Chopping-Backend
 To run the game, run the server for the backend with "rails s" and this app with "npx serve". Then in browser navigate to localhost:5000. 
 
 Thanks!
+
+Good luck have fun!
