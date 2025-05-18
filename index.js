@@ -5,26 +5,10 @@ document.addEventListener("click", (event)=>{ console.log("You just peeped::", e
 
 document.addEventListener("DOMContentLoaded", () => {
 
-
-  // shame user
-  // get element, add listener, add block for show, find the user with the name ass, find that lowest score, populate the node.
-  // const shameUserButton = document.getElementById("shame-user")
-  // shameUserButton.addEventListener("click", ()=> {
-  //   let assUser= User.all.find( user => user.name == "ass")
-  //   let assUserScores = Game.all.filter(game => game.user_id == assUser.id)
-    
-
-
-  //   console.log(assUserScores)
-  // })
-
-
-
   //logged in user
   let loggedUser = {}
   function setUser (user){
     loggedUser = new User(user)
-    console.log(loggedUser)
   }
 
   const API_DATABASE_URL = "http://localhost:3000/users"
@@ -270,13 +254,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // .then(theThingFromServer => console.log(theThingFromServer))
         .then(theThingWePosted => {
           currentUser = theThingWePosted
-          console.log(currentUser)
-          console.log(theThingWePosted)
           setUser(currentUser)
+          API.fetchAllUserGames(loggedUser)
         })
     }
-    API.fetchAllUserGames(loggedUser)
-    // renderUser(loggedUser)
     resetGame()
     play()
   })
