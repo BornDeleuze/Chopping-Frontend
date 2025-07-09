@@ -8,8 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
     loggedUser = new User(user)
   }
 
-  const API_DATABASE_URL = "http://localhost:3000/users"
-  const API_GAMES_URL = "http://localhost:3000/games"
+  const API_BASE_URL = "https://chopping-backend.onrender.com"
+  const API_DATABASE_URL = `${API_BASE_URL}/users`
+  const API_GAMES_URL = `${API_BASE_URL}/games`
+
   API.fetchAllUsers()
   API.fetchAllGames()
 
