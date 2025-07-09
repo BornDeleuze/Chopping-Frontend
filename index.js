@@ -1,7 +1,4 @@
-
-// For easy debugging!
-document.addEventListener("click", (event)=>{ console.log("You just peeped::", event.target) })
-
+// import { User } from '/js/models/user.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -55,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // play again button functionality
   const playAgainButton = document.getElementById("play-again-button")
   playAgainButton.addEventListener("click", function(){
-    console.log("hello world")
     playAgainButton.style.display="none"
     play()
 
@@ -76,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //draw game over screen
   const drawGameOver = function(){
-    console.log("we hit the game over")
     ctx.fillStyle = "rgb(250, 250, 250)";
     ctx.font = "30px Arial";
     ctx.textAlign = "center";
@@ -166,8 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
       && jax.y > 97
     ){}else if (
       sasquatchOut == true
-    ){ console.log("gameOver") 
-      gameOver = true
+    ){ gameOver = true
     }
   };
 
@@ -196,7 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
       drawGameOver();
       showPlayAgain();
       //post fetch for GAME SCORE ********************************
-      console.log(loggedUser)
       fetch(API_GAMES_URL, {        
         method: "POST",
         headers: { "Content-Type": "application/json"},
@@ -206,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       })
       .then(response => response.json())
-      .then(theThingWePosted => {console.log("Hey! This is what is sent! ",theThingWePosted)
+      .then(theThingWePosted => {
       clearScores()
       API.fetchAllGames()
       API.fetchAllUserGames(loggedUser)
@@ -228,7 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
   loginForm.addEventListener("submit", event =>{ event.preventDefault(); 
     const userName = event.target.name.value
     document.getElementById("login-form").style.display = "none";
-    console.log("helloooo!!!!!")
     //find or create by name
     //find
     var currentUser = null
@@ -251,7 +243,6 @@ document.addEventListener("DOMContentLoaded", () => {
           })
         })
         .then(response => response.json())
-        // .then(theThingFromServer => console.log(theThingFromServer))
         .then(theThingWePosted => {
           currentUser = theThingWePosted
           setUser(currentUser)

@@ -1,7 +1,14 @@
 class API {
 
-    // users get fetch
-    static API_USER_TABLE_URL = "http://localhost:3000/users"
+  
+  static API_BASE_URL = window.location.hostname.includes("localhost")
+  ? "http://localhost:3000"
+  : "https://chopping-backend.onrender.com";
+
+  static API_USER_TABLE_URL = `${this.API_BASE_URL}/users`
+  static API_SCORES_TABLE_URL = `${this.API_BASE_URL}/games`
+
+  // users get fetch
     static fetchAllUsers(){
 
         fetch(this.API_USER_TABLE_URL).then(response => response.json())
@@ -18,7 +25,6 @@ class API {
     }
 
     // scores get fetch
-    static API_SCORES_TABLE_URL = "http://localhost:3000/games"
     static fetchAllGames(){
       
         fetch(this.API_SCORES_TABLE_URL).then(response => response.json())
