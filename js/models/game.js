@@ -58,3 +58,5 @@ class Game {
         userScoreElement.innerHTML = this.makeAUserScore()
     }
 }
+
+export default Game;

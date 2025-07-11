@@ -1,58 +1,46 @@
-class API {
-
-  
-  static API_BASE_URL = window.location.hostname.includes("localhost")
+const API_BASE_URL = window.location.hostname.includes("localhost")
   ? "http://localhost:3000"
   : "https://chopping-backend.onrender.com";
 
-  static API_USER_TABLE_URL = `${this.API_BASE_URL}/users`
-  static API_SCORES_TABLE_URL = `${this.API_BASE_URL}/games`
+class API {
+  static API_USER_TABLE_URL = `${API_BASE_URL}/users`;
+  static API_SCORES_TABLE_URL = `${API_BASE_URL}/games`;
 
-  // users get fetch
-    static fetchAllUsers(){
+  static createUser(userName) {
+    return fetch(this.API_USER_TABLE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: userName }),
+    }).then(res => res.json());
+  }
 
-        fetch(this.API_USER_TABLE_URL).then(response => response.json())
-        .then(fetchedArray => {
-          
-          fetchedArray.forEach(user => { 
-            
-            // Backend user into  frontend user
-            const newUser = new User(user)
-            // Put user in DOM
-            // newUser.renderUser(user)
-          }) 
-        })
-    }
+  static fetchAllUsers() {
+    return fetch(this.API_USER_TABLE_URL)
+      .then(res => res.json())
+      .then(users => users.forEach(user => new User(user)));
+  }
 
-    // scores get fetch
-    static fetchAllGames(){
-      
-        fetch(this.API_SCORES_TABLE_URL).then(response => response.json())
-        .then(fetchedArray => {
-          
-            
-            fetchedArray.slice(0, 10).forEach(game => {
-            
-            // Backend game into  frontend game
-            const newGame = new Game(game)
-            // Put game scores in DOM
-            setTimeout(function(){ newGame.renderTopScores(game) }, 500);
-            // newGame.renderTopScores(game)
-            }) 
-        })
-    }
+  static fetchAllGames() {
+    return fetch(this.API_SCORES_TABLE_URL)
+      .then(res => res.json())
+      .then(games => {
+        games.slice(0, 10).forEach(game => {
+          const newGame = new Game(game);
+          setTimeout(() => newGame.renderTopScores(game), 500);
+        });
+      });
+  }
 
-    // scores get fetch for given user
-    static fetchAllUserGames(currentUser){
-        fetch(this.API_SCORES_TABLE_URL).then(response => response.json())
-        .then(fetchedArray => {
-          let fetchedUserArray = fetchedArray.filter(game => game.user_id == currentUser.id);
-            fetchedUserArray.slice(0, 10).forEach(game => {
-            // Backend games into  frontend games
-            const newGame = new Game(game)
-            // Put game scores in DOM
-            newGame.renderTopUserScores(game)
-            }) 
-        })
-    }
+  static fetchAllUserGames(currentUser) {
+    return fetch(this.API_SCORES_TABLE_URL)
+      .then(res => res.json())
+      .then(games => {
+        games
+          .filter(game => game.user_id == currentUser.id)
+          .slice(0, 10)
+          .forEach(game => new Game(game).renderTopUserScores(game));
+      });
+  }
 }
+
+export default API;

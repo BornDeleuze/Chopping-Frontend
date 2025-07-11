@@ -15,3 +15,5 @@ class User {
         userHeader.textContent= "GOOD LUCK " + user.name
     }   
 }
+
+export default User;
