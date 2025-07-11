@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let loggedUser = null;
 
-  const loginForm = document.querySelector("#login-form");
+  const loginForm = document.querySelector("#login-form form");
   loginForm.addEventListener("submit", event => {
     event.preventDefault();
     const userName = event.target.name.value;
@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
       loggedUser.renderUser(existingUser);
       startGame();
     } else {
+      asd
       API.createUser(userName).then(user => {
         loggedUser = new User(user);
         API.fetchAllUserGames(loggedUser);
