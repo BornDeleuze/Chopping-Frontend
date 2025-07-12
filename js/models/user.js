@@ -1,5 +1,5 @@
 //declase user class
-class User {
+export class User {
     // store all the users from API
     static all = []
 

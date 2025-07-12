@@ -1,3 +1,5 @@
+import { User } from './user.js';
+
 class Game {
 
     // store all the users from API

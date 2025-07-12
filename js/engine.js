@@ -31,7 +31,6 @@ export function setupCanvas() {
   ctx = canvas.getContext('2d');
   canvas.width = 640;
   canvas.height = 480;
-  document.body.appendChild(canvas);
 }
 
 function drawBoard() {
@@ -74,7 +73,6 @@ function drawGameOver() {
 }
 
 export function gameLoop(onGameOver) {
-  console.log("hi im in setup canvas")
   let now = Date.now();
   let delta = (now - then) / 1000;
 
