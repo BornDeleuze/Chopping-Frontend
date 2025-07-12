@@ -9,10 +9,12 @@ export let sasquatchOut = false;
 export function updateSasquatch(gScore, delta) {
   if (sasquatchActive) {
     sasquatch.x += (gScore / 2) * delta;
-    if (sasquatch.x > 155) sasquatchOut = true;
-    if (sasquatch.x > 600) {
-      sasquatchActive = false;
+    if (sasquatch.x > 155 ) sasquatchOut = true;
+    if (sasquatch.x > 550) {
       sasquatchOut = false;
+    }
+    if (sasquatch.x > 900) {
+      sasquatchActive = false;
       sasquatch.x = -300;
     }
   }

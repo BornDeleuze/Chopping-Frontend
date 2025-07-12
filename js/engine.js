@@ -94,9 +94,12 @@ export function gameLoop(onGameOver) {
 export function resetGame() {
   jax.x = 550;
   jax.y = 200;
+  sasquatch.x = -300;
+  sasquatch.y = 0;
   gScore = 0;
   gameOver = false;
   scoreIncrease = false;
-  sasquatch.x = -300;
-  sasquatch.y = 0;
+  document.getElementById("play-again").style.display = "none";
+
 }
+

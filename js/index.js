@@ -12,26 +12,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let loggedUser = null;
 
-  const loginForm = document.querySelector("#login-form form");
+  const loginForm = document.querySelector("#login-form");
   loginForm.addEventListener("submit", event => {
     event.preventDefault();
     const userName = event.target.name.value;
+    // Hide login form and show canvas
     loginForm.style.display = "none";
-
-    let existingUser = User.all.find(u => u.name === userName);
-    if (existingUser) {
-      loggedUser = existingUser;
-      loggedUser.renderUser(existingUser);
-      startGame();
-    } else {
-      asd
-      API.createUser(userName).then(user => {
-        loggedUser = new User(user);
-        API.fetchAllUserGames(loggedUser);
+    document.getElementById("canvas").style.display = "block";
+      let existingUser = User.all.find(u => u.name === userName);
+      if (existingUser) {
+        loggedUser = existingUser;
+        loggedUser.renderUser(existingUser);
         startGame();
+      } else {
+        API.createUser(userName).then(user => {
+          loggedUser = new User(user);
+          API.fetchAllUserGames(loggedUser);
+          startGame();
       });
     }
-  });
+  }); 
+
 
   function startGame() {
     resetGame();
