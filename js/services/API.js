@@ -1,3 +1,4 @@
+// API.js
 import Game from '../models/game.js';
 import User from '../models/user.js';
 
@@ -22,7 +23,7 @@ class API {
       .then(res => res.json())
       .then(users => users.forEach(user => new User(user)));
   }
-  
+
   static submitScore(score, userId) {
     return fetch(this.API_SCORES_TABLE_URL, {
       method: "POST",
@@ -37,22 +38,15 @@ class API {
   static fetchAllGames() {
     return fetch(this.API_SCORES_TABLE_URL)
       .then(res => res.json())
-      .then(games => {
-        games.slice(0, 10).forEach(game => {
-          const newGame = new Game(game);
-          setTimeout(() => newGame.renderTopScores(game), 500);
-        });
-      });
+      .then(games => Game.renderTopScores(games));
   }
 
   static fetchAllUserGames(currentUser) {
     return fetch(this.API_SCORES_TABLE_URL)
       .then(res => res.json())
       .then(games => {
-        games
-          .filter(game => game.user_id == currentUser.id)
-          .slice(0, 10)
-          .forEach(game => new Game(game).renderTopUserScores(game));
+        const userGames = games.filter(game => game.user_id == currentUser.id);
+        Game.renderTopUserScores(userGames);
       });
   }
 }

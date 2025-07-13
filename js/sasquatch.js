@@ -1,27 +1,46 @@
-export const sasquatch = {
-  x: -300,
-  y: 0
-};
+// sasquatch.js
 
-export let sasquatchActive = false;
-export let sasquatchOut = false;
+export class Sasquatch {
+  constructor() {
+    this.x = -300;
+    this.y = 0;
+    this.speed = 100;
+    this.danger = false;
+  }
 
-export function updateSasquatch(gScore, delta) {
-  if (sasquatchActive) {
-    sasquatch.x += (gScore / 2) * delta;
-    if (sasquatch.x > 155 ) sasquatchOut = true;
-    if (sasquatch.x > 550) {
-      sasquatchOut = false;
+  update(score, delta) {
+    if (this.danger) {
+      this.speed = 100 + score * .1; // or whatever scale you want
+      this.x += this.speed * delta;
     }
-    if (sasquatch.x > 900) {
-      sasquatchActive = false;
-      sasquatch.x = -300;
+    if (this.x > 700) {  // Assuming canvas width is 640 + some buffer
+      this.danger = false;
+      this.x = -300; // reset position off-screen
     }
+  }
+
+
+maybeTrigger(score) {
+  if (!this.danger && score > 100 && score % 10 === 0 && Math.random() < 0.4) {
+    this.danger = true;
   }
 }
 
-export function triggerSasquatch(gScore) {
-  if ([100, 350, 400, 500, 600, 625, 15000].includes(gScore)) {
-    sasquatchActive = true;
+
+  isInDangerZone() {
+    // You can customize these bounds as needed
+    return this.x > 200 && this.x < 500;
+  }
+
+  draw(ctx, img) {
+    if (this.danger) {
+      ctx.drawImage(img, this.x, this.y, 300, 450);
+    }
+  }
+
+  reset() {
+    this.x = -300;
+    this.y = 0;
+    this.danger = false;
   }
 }

@@ -17,24 +17,25 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     const userName = event.target.name.value;
     // Hide login form and show canvas
-    loginForm.style.display = "none";
-    document.getElementById("canvas").style.display = "block";
-      let existingUser = User.all.find(u => u.name === userName);
-      if (existingUser) {
-        loggedUser = existingUser;
-        loggedUser.renderUser(existingUser);
+    document.getElementById("login-form").style.display = "none";
+    document.getElementById("game-wrapper").style.display = "block";
+    let existingUser = User.all.find(u => u.name === userName);
+    if (existingUser) {
+      loggedUser = existingUser;
+      loggedUser.renderUser(existingUser);
+      startGame();
+    } else {
+      API.createUser(userName).then(user => {
+        loggedUser = new User(user);
+        API.fetchAllUserGames(loggedUser);
         startGame();
-      } else {
-        API.createUser(userName).then(user => {
-          loggedUser = new User(user);
-          API.fetchAllUserGames(loggedUser);
-          startGame();
       });
     }
   }); 
 
 
   function startGame() {
+    document.getElementById("play-again").style.display = "none";
     resetGame();
     myMusic.play();
     gameLoop((score) => {
