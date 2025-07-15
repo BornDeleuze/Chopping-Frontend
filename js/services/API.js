@@ -62,6 +62,14 @@ class API {
         console.error("Failed to fetch user games:", err);
       });
   }
+
+  static fetchAllUsers() {
+    return fetchWithRetry(this.API_USER_TABLE_URL)
+      .then(users => users.forEach(user => new User(user)))
+      .catch(err => {
+        console.error("Failed to fetch user games:", err);
+      });
+  }
 }
 
 export default API;

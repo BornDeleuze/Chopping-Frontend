@@ -23,6 +23,15 @@ h5 {
   color: rgb(0, 0, 0);
 }
 
+#error-message {
+  display: none;
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
 #game-and-scores {
   display: flex;
   align-items: flex-start;
