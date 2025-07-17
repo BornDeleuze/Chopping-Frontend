@@ -1,4 +1,8 @@
 Chopping is a web game built in Javascript, with Rails as a backend API.
+
+This game can be found at https://chopping.netlify.app/
+The backend is spund down on inactivity so it takes a bit to build and connect :0
+
 The point of the game is to chop as much wood as you can before sasquatch eats you.
 It was my first Javascript project, so take it easy on me ;)
 
