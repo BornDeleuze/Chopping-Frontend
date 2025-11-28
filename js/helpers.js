@@ -3,7 +3,7 @@ export function fetchWithRetry(url, options = {}, retries = 3, delay = 1000) {
 
   if (errorDiv) {
     errorDiv.style.display = "block";
-    errorDiv.textContent = "The backend spins down at inactivity... check back in a minute and it should be spun up and ready for fun.";
+    errorDiv.textContent = "Get ready! Just a moment!";
   }
 
   const attemptFetch = (n) =>
