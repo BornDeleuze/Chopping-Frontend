@@ -5,7 +5,7 @@ import { fetchWithRetry } from '../helpers.js';
 const API_BASE_URL = window.location.hostname.includes("localhost")
   ? "http://localhost:3000"
   : 
-  "chopping-api-production.up.railway.app";
+  "https://chopping-api-production.up.railway.app";
 
 class API {
   static API_USER_TABLE_URL = `${API_BASE_URL}/users`;
